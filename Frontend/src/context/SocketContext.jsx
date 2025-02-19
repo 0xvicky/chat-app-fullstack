@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { useAuth } from "./AuthProvider";
+import {createContext, useContext, useEffect, useState} from "react";
+import {useAuth} from "./AuthProvider";
 import io from "socket.io-client";
 const socketContext = createContext();
 
@@ -8,20 +8,20 @@ export const useSocketContext = () => {
   return useContext(socketContext);
 };
 
-export const SocketProvider = ({ children }) => {
+export const SocketProvider = ({children}) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [authUser] = useAuth();
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("http://localhost:4002", {
+      const socket = io("https://chat-app-fullstack-g47l.onrender.com", {
         query: {
-          userId: authUser.user._id,
-        },
+          userId: authUser.user._id
+        }
       });
       setSocket(socket);
-      socket.on("getOnlineUsers", (users) => {
+      socket.on("getOnlineUsers", users => {
         setOnlineUsers(users);
       });
       return () => socket.close();
@@ -33,7 +33,7 @@ export const SocketProvider = ({ children }) => {
     }
   }, [authUser]);
   return (
-    <socketContext.Provider value={{ socket, onlineUsers }}>
+    <socketContext.Provider value={{socket, onlineUsers}}>
       {children}
     </socketContext.Provider>
   );

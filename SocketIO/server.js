@@ -1,4 +1,4 @@
-import { Server } from "socket.io";
+import {Server} from "socket.io";
 import http from "http";
 import express from "express";
 
@@ -7,20 +7,20 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3001",
-    methods: ["GET", "POST"],
-  },
+    origin: "https://chat-app-fullstack-g47l.onrender.com",
+    methods: ["GET", "POST"]
+  }
 });
 
 // realtime message code goes here
-export const getReceiverSocketId = (receiverId) => {
+export const getReceiverSocketId = receiverId => {
   return users[receiverId];
 };
 
 const users = {};
 
 // used to listen events on server side.
-io.on("connection", (socket) => {
+io.on("connection", socket => {
   console.log("a user connected", socket.id);
   const userId = socket.handshake.query.userId;
   if (userId) {
@@ -38,4 +38,4 @@ io.on("connection", (socket) => {
   });
 });
 
-export { app, io, server };
+export {app, io, server};
