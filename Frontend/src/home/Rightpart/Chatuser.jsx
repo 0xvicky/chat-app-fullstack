@@ -15,7 +15,7 @@ function Chatuser() {
       <div>
         <div className='avatar online'>
           <div className='w-14 rounded-full'>
-            <img src='./1.jpg' />
+            <img src='https://i.redd.it/mf3qo420hnj91.jpg' />
           </div>
         </div>
       </div>
